@@ -12,6 +12,7 @@ Graphe::~Graphe()
 }
 Graphe::Graphe(std::string filename)    ///Code TP2 : R.Fercoq / ECE / 2019
 {
+    std::string suffix = "_weights_0";
     std::ifstream ifs{filename};
     if (!ifs)
         throw std::runtime_error( "Impossible d'ouvrir en lecture " + filename );
@@ -53,31 +54,55 @@ Graphe::Graphe(std::string filename)    ///Code TP2 : R.Fercoq / ECE / 2019
 
     }
 
-    for(int i = 0; i < taille; i++)
+
+    std::cout << "Choisissez le fichier de pondération" << std::endl;
+    std::cin >> filename;
+
+    std::ifstream ifs1{filename};
     {
+        int taille, g_poids;
+        float p_val;
+        ifs1 >> taille;
+        if(taille == m_Aretes.size())
+        {
+            ifs1 >> g_poids;
+            for(int i = 0; i < taille; i++)
+            {
+                ifs1>> id;
+                for(int j = 0; j < g_poids; j++)
+                {
+                    ifs1 >> p_val;
+                                   m_Aretes[i].AddPoids(p_val);
+                }
+            }
+        }
+        else std::cout << "Erreur : Incompatibilite des aretes";
+
+    }
+    for(int i = 0; i < m_Aretes.size(); i++)
+    {
+        std::cout << "Arete numero : " << i << std::endl;
         m_Aretes[i].DispArete();
     }
-    for(int i = 0; i < ordre; i++)
+    for(int i = 0; i < m_sommets.size(); i++)
     {
         std::cout << "adjacent pour sommet : " << i << std::endl;
 
         m_sommets[i].DispAdja();
     }
-    /*
-    int taille;
-    ifs >> taille;
-    if ( ifs.fail() )
-        throw std::runtime_error("Probleme lecture taille du graphe");
-    std::string id_voisin;
-    //lecture des aretes
-    for (int i=0; i<taille; ++i){
-        //lecture des ids des deux extrémités
-        ifs>>id; if(ifs.fail()) throw std::runtime_error("Probleme lecture arete sommet 1");
-        ifs>>id_voisin; if(ifs.fail()) throw std::runtime_error("Probleme lecture arete sommet 2");
-        //ajouter chaque extrémité à la liste des voisins de l'autre (graphe non orienté)
-        (m_sommets.find(id))->second->ajouterVoisin((m_sommets.find(id_voisin))->second);
-        (m_sommets.find(id_voisin))->second->ajouterVoisin((m_sommets.find(id))->second);//remove si graphe orienté
-    }
-    */
+
+}
+
+
+void Graphe::KruskalAlgo()
+{
+    int chx;
+    int ptdepart;
+    std::cout << "Definissez l'objectif (de 0 à " << std::cout m_Aretes[0].GetPoidsDimension() << std::endl:
+    std::cin >> chx;
+    std::cout << "Definissez le point de depart (de 0 à " << std::cout m_sommets.size() << std::endl:
+    std::cin >> ptdepart;
+
+
 
 }

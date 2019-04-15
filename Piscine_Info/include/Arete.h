@@ -14,10 +14,9 @@ class Arete
         }
         virtual ~Arete();
 
-        int GetPoids(int poids_ID) { return m_Poids[poids_ID]; }
-        int GetPoidsDimension() { return m_poids; }
-        void Setpoids(int val) { m_poids = val; }
-        void AddPoids(int poids)
+        float GetPoids(int poids_ID) { return m_Poids[poids_ID]; }
+        int GetPoidsDimension() { return m_Poids.size(); }
+        void AddPoids(float poids)
         {
             m_Poids.push_back(poids);
         }
@@ -25,6 +24,11 @@ class Arete
         {
             std::cout << m_sommets_ID.first << std::endl;
             std::cout << m_sommets_ID.second << std::endl;
+            for(int i = 0; i < m_Poids.size(); i++)
+            {
+               std::cout <<  m_Poids[i] << "  " << std::endl;
+            }
+            std::cout << std::endl;
         }
 
     protected:
@@ -32,9 +36,8 @@ class Arete
     private:
         Sommet m_sommet1;
         Sommet m_sommet2;
-        std::vector <int>m_Poids;
+        std::vector <float>m_Poids;
         std::pair <int, int> m_sommets_ID;
-        int m_poids;
 };
 
 #endif // ARETE_H

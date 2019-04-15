@@ -13,6 +13,7 @@ class Graphe
         Graphe(std::string filename);
         virtual ~Graphe();
 
+        void KruskalAlgo();
         std::string Getn_name() { return m_name; }
         void Setn_name(std::string val) { m_name = val; }
         unsigned int Getm_ordre() { return m_ordre; }
@@ -27,10 +28,15 @@ class Graphe
         {
             m_sommets[ID].DispSommet();
         }
+        void DisplayArete(int ID)
+        {
+            m_Aretes[ID].DispArete();
+        }
         void AddAdja(int ID_Somm_1, int ID_Somm_2)
         {
             m_sommets[ID_Somm_1].AddAdja(&(m_sommets[ID_Somm_2])); ///Ajouter l'adjansense
         }
+
 
     protected:
 

@@ -29,10 +29,7 @@ class Sommet
             m_Adja.push_back(ID_Adja);
         }
 
-        void AddAdjaID(int ID)
-        {
-            m_Adja_ID.push_back(ID);
-        }
+
 
         void DispAdja()
         {
