@@ -41,6 +41,7 @@ class Sommet
             std::cout << std::endl;
         }
 
+        std::vector<Sommet*> getAdja() { return m_Adja; }
     protected:
 
     private:

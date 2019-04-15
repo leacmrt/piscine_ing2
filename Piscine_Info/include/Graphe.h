@@ -14,11 +14,12 @@ class Graphe
         virtual ~Graphe();
 
         void KruskalAlgo();
+        void TrierGraphe(int ID_Pds);
         std::string Getn_name() { return m_name; }
         void Setn_name(std::string val) { m_name = val; }
-        unsigned int Getm_ordre() { return m_ordre; }
+        unsigned int Getm_ordre() { return m_sommets.size(); }
         void Setm_ordre(unsigned int val) { m_ordre = val; }
-        unsigned int Gettaille() { return m_taille; }
+        unsigned int Gettaille() { return m_Aretes.size(); }
         void Settaille(unsigned int val) { m_taille = val; }
         void AddArete(int id_1, int id_2)
         {
@@ -36,6 +37,12 @@ class Graphe
         {
             m_sommets[ID_Somm_1].AddAdja(&(m_sommets[ID_Somm_2])); ///Ajouter l'adjansense
         }
+        std::vector<Sommet*> getAdja(int ID)
+        {
+            return m_sommets[ID].getAdja();
+        }
+        void SortArete(int critere);
+        void Pareteo(const int vect_size);
 
 
     protected:

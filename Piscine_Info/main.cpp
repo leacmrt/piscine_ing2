@@ -11,4 +11,5 @@ int main()
     std::cout << "Please input filename" << std::endl;
     std::cin >> nomfichier;
     Graphe Test = Graphe(nomfichier);
+    Test.Pareteo(Test.Getm_ordre());
 }

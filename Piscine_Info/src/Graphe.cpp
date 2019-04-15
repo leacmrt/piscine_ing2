@@ -1,6 +1,10 @@
+#include <algorithm>
 #include "Graphe.h"
+#include "Arete.h"
+#include <vector>
 #include <fstream>
 #include <iostream>
+#include <bitset>
 Graphe::Graphe()
 {
     //ctor
@@ -26,10 +30,17 @@ Graphe::Graphe(std::string filename)    ///Code TP2 : R.Fercoq / ECE / 2019
     std::string id;
     double x,y;
     //lecture des sommets
-    for (int i=0; i<ordre; ++i){
-        ifs>>id; if(ifs.fail()) throw std::runtime_error("Probleme lecture données sommet");
-        ifs>>x; if(ifs.fail()) throw std::runtime_error("Probleme lecture données sommet");
-        ifs>>y; if(ifs.fail()) throw std::runtime_error("Probleme lecture données sommet");
+    for (int i=0; i<ordre; ++i)
+    {
+        ifs>>id;
+        if(ifs.fail())
+            throw std::runtime_error("Probleme lecture données sommet");
+        ifs>>x;
+        if(ifs.fail())
+            throw std::runtime_error("Probleme lecture données sommet");
+        ifs>>y;
+        if(ifs.fail())
+            throw std::runtime_error("Probleme lecture données sommet");
         m_sommets.push_back(Sommet(id,x,y));
 
 
@@ -72,11 +83,12 @@ Graphe::Graphe(std::string filename)    ///Code TP2 : R.Fercoq / ECE / 2019
                 for(int j = 0; j < g_poids; j++)
                 {
                     ifs1 >> p_val;
-                                   m_Aretes[i].AddPoids(p_val);
+                    m_Aretes[i].AddPoids(p_val);
                 }
             }
         }
-        else std::cout << "Erreur : Incompatibilite des aretes";
+        else
+            std::cout << "Erreur : Incompatibilite des aretes";
 
     }
     for(int i = 0; i < m_Aretes.size(); i++)
@@ -93,16 +105,64 @@ Graphe::Graphe(std::string filename)    ///Code TP2 : R.Fercoq / ECE / 2019
 
 }
 
-
-void Graphe::KruskalAlgo()
+void Graphe::Pareteo(int vect_size)
 {
-    int chx;
-    int ptdepart;
-    std::cout << "Definissez l'objectif (de 0 à " << std::cout m_Aretes[0].GetPoidsDimension() << std::endl:
-    std::cin >> chx;
-    std::cout << "Definissez le point de depart (de 0 à " << std::cout m_sommets.size() << std::endl:
-    std::cin >> ptdepart;
+    std::cout << vect_size << std::endl << std::endl;
+    std::vector<short>bin_Vect;
+    std::vector<std::vector<short>>bin_Vect_Good;
 
+    int NmbreTotalEssais = pow(2,vect_size);
+    int buffer;
+    for(int i = 0; i < NmbreTotalEssais; i++)
+    {
+        bin_Vect.clear();
+        buffer = i;
+        for(int j = 0; buffer > 0  ; j++)
+        {
+            bin_Vect.push_back(buffer%2);
+            buffer = buffer / 2;
+        }
+
+
+        buffer = 0;
+        for(int j = 0; j < bin_Vect.size(); j++)
+        {
+            buffer = buffer + bin_Vect[j];
+        }
+       // std::cout << buffer << "  " << vect_size << std::endl;
+        if(buffer == (vect_size - 2))
+        {
+            if(bin_Vect.size() == vect_size - 1)
+            {
+                bin_Vect.push_back(0);
+            }
+                bin_Vect_Good.push_back(bin_Vect);
+        }
+    }
+    std::cout << "GOOD VALUES" << std::endl;
+    for(int i = 0; i < bin_Vect_Good.size() ; i++)
+    {
+        for(int j= 0; j < bin_Vect_Good[i].size(); j++)
+        {
+            std::cout << bin_Vect_Good[i][j];
+        }
+        std::cout << std::endl;
+    }
+    ///Test connexite : TODO!!
 
 
 }
+
+void Graphe::KruskalAlgo()
+{
+    std::vector<Sommet>AdjaVect;
+    int chx;
+    int ptdepart;
+    std::cout << "Definissez l'objectif (de 0 à " << m_Aretes[0].GetPoidsDimension() << std::endl;
+    std::cin >> chx;
+    std::cout << "Definissez le point de depart (de 0 à " << m_sommets.size() << std::endl;
+    std::cin >> ptdepart;
+
+
+}
+

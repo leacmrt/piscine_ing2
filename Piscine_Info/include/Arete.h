@@ -1,6 +1,7 @@
 #ifndef ARETE_H
 #define ARETE_H
 #include "Sommet.h"
+#include "Poids.h"
 
 class Arete
 {
@@ -16,6 +17,7 @@ class Arete
 
         float GetPoids(int poids_ID) { return m_Poids[poids_ID]; }
         int GetPoidsDimension() { return m_Poids.size(); }
+
         void AddPoids(float poids)
         {
             m_Poids.push_back(poids);
@@ -29,6 +31,11 @@ class Arete
                std::cout <<  m_Poids[i] << "  " << std::endl;
             }
             std::cout << std::endl;
+        }
+
+        bool pred(Arete *a1, Arete *a2)
+        {
+            return a1->m_Poids[0] > a2->m_Poids[0];
         }
 
     protected:

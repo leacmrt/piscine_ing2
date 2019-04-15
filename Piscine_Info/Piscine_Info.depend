@@ -1,16 +1,20 @@
 # depslib dependency file v1.0
-1555320816 source:c:\users\admin\desktop\piscine_info\main.cpp
+1555345695 source:c:\users\admin\desktop\piscine_info\main.cpp
 	<iostream>
 	"Graphe.h"
 	"Sommet.h"
 	"Arete.h"
 
-1555328353 source:c:\users\admin\desktop\piscine_info\src\graphe.cpp
+1555345531 source:c:\users\admin\desktop\piscine_info\src\graphe.cpp
+	<algorithm>
 	"Graphe.h"
+	"Arete.h"
+	<vector>
 	<fstream>
 	<iostream>
+	<bitset>
 
-1555328301 c:\users\admin\desktop\piscine_info\include\graphe.h
+1555345717 c:\users\admin\desktop\piscine_info\include\graphe.h
 	<unordered_map>
 	<iostream>
 	<vector>
@@ -20,7 +24,7 @@
 1555320377 source:c:\users\admin\desktop\piscine_info\src\sommet.cpp
 	"Sommet.h"
 
-1555326583 c:\users\admin\desktop\piscine_info\include\sommet.h
+1555336225 c:\users\admin\desktop\piscine_info\include\sommet.h
 	<vector>
 	<string>
 	<iostream>
@@ -28,6 +32,13 @@
 1555318340 source:c:\users\admin\desktop\piscine_info\src\arete.cpp
 	"Arete.h"
 
-1555328251 c:\users\admin\desktop\piscine_info\include\arete.h
+1555335315 c:\users\admin\desktop\piscine_info\include\arete.h
 	"Sommet.h"
+	"Poids.h"
+
+1555334892 c:\users\admin\desktop\piscine_info\include\poids.h
+	<vector>
+
+1555334808 source:c:\users\admin\desktop\piscine_info\src\poids.cpp
+	"Poids.h"
 
