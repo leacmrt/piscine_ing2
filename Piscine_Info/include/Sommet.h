@@ -10,9 +10,9 @@ class Sommet
     public:
         Sommet();
         virtual ~Sommet();
-        Sommet(std::string id, double x, double y);
+        Sommet(int id, double x, double y);
 
-        std::string GetID() { return m_ID; }
+        int GetID() { return m_ID; }
         void SetID(unsigned int val) { m_ID = val; }
         unsigned int GetposX() { return m_posX; }
         void SetposX(unsigned int val) { m_posX = val; }
@@ -30,10 +30,9 @@ class Sommet
         }
 
 
-
         void DispAdja()
         {
-            for(int i = 0; i < m_Adja.size(); i++)
+            for(unsigned int i = 0; i < m_Adja.size(); i++)
             {
                 (*m_Adja[i]).DispSommet();
 
@@ -45,7 +44,7 @@ class Sommet
     protected:
 
     private:
-        std::string m_ID;
+        int m_ID;
         double m_posX;
         double m_posY;
         std::vector<Sommet*> m_Adja;

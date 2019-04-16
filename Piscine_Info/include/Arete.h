@@ -17,6 +17,8 @@ class Arete
 
         float GetPoids(int poids_ID) { return m_Poids[poids_ID]; }
         int GetPoidsDimension() { return m_Poids.size(); }
+        int GetSommet1() { return m_sommet1.GetID();}
+        int GetSommet2() { return m_sommet2.GetID();}
 
         void AddPoids(float poids)
         {
@@ -26,7 +28,7 @@ class Arete
         {
             std::cout << m_sommets_ID.first << std::endl;
             std::cout << m_sommets_ID.second << std::endl;
-            for(int i = 0; i < m_Poids.size(); i++)
+            for(unsigned int i = 0; i < m_Poids.size(); i++)
             {
                std::cout <<  m_Poids[i] << "  " << std::endl;
             }

@@ -10,6 +10,8 @@ class Graphe
 {
     public:
         Graphe();
+        Graphe(std::vector<Sommet>sommetVector, std::vector<Arete>areteVector);
+
         Graphe(std::string filename);
         virtual ~Graphe();
 
@@ -33,6 +35,16 @@ class Graphe
         {
             m_Aretes[ID].DispArete();
         }
+        void DisplayGraphe()
+        {
+            std::cout << " ARETES  " << m_Aretes.size() << std::endl;
+
+            for(unsigned int i = 0; i < m_Aretes.size(); i++)
+            {
+                std::cout << m_Aretes[i].GetSommet1() << " = " << m_Aretes[i].GetSommet2();
+                std::cout <<  "weight : " << m_Aretes[i].GetPoids(0) << std::endl;
+            }
+        }
         void AddAdja(int ID_Somm_1, int ID_Somm_2)
         {
             m_sommets[ID_Somm_1].AddAdja(&(m_sommets[ID_Somm_2])); ///Ajouter l'adjansense
@@ -42,7 +54,7 @@ class Graphe
             return m_sommets[ID].getAdja();
         }
         void SortArete(int critere);
-        void Pareteo(const int vect_size);
+        void Pareteo(const unsigned int vect_size);
 
 
     protected:
