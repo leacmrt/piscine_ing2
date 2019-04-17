@@ -5,6 +5,7 @@
 #include <vector>
 #include <Sommet.h>
 #include <Arete.h>
+#include "allegro.h"
 
 class Graphe
 {
@@ -15,6 +16,7 @@ class Graphe
         Graphe(std::string filename);
         virtual ~Graphe();
 
+        void DrawGraph(BITMAP* buffer);
         void KruskalAlgo();
         void TrierGraphe(int ID_Pds);
         std::string Getn_name() { return m_name; }
@@ -44,6 +46,12 @@ class Graphe
                 std::cout << m_Aretes[i].GetSommet1() << " = " << m_Aretes[i].GetSommet2();
                 std::cout <<  "weight : " << m_Aretes[i].GetPoids(0) << std::endl;
             }
+            std::cout << " SOMMETS : ";
+            for(unsigned int i = 0; i < m_sommets.size(); i++)
+            {
+                std::cout << m_sommets[i].GetID();
+            }
+            std::cout << std::endl;
         }
         void AddAdja(int ID_Somm_1, int ID_Somm_2)
         {
@@ -54,7 +62,9 @@ class Graphe
             return m_sommets[ID].getAdja();
         }
         void SortArete(int critere);
-        void Pareteo(const unsigned int vect_size);
+    void Pareteo(unsigned int vect_size, BITMAP* screen_buffer);
+    void Pareteo(unsigned int vect_size);
+
 
 
     protected:

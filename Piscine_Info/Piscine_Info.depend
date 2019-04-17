@@ -1,11 +1,12 @@
 # depslib dependency file v1.0
-1555401098 source:c:\users\admin\desktop\piscine_info\main.cpp
+1555500388 source:c:\users\admin\desktop\piscine_info\main.cpp
 	<iostream>
 	"Graphe.h"
 	"Sommet.h"
 	"Arete.h"
+	"allegro.h"
 
-1555425095 source:c:\users\admin\desktop\piscine_info\src\graphe.cpp
+1555500423 source:c:\users\admin\desktop\piscine_info\src\graphe.cpp
 	<algorithm>
 	"Graphe.h"
 	"Arete.h"
@@ -13,13 +14,16 @@
 	<fstream>
 	<iostream>
 	<bitset>
+	<queue>
+	<allegro.h>
 
-1555425137 c:\users\admin\desktop\piscine_info\include\graphe.h
+1555500020 c:\users\admin\desktop\piscine_info\include\graphe.h
 	<unordered_map>
 	<iostream>
 	<vector>
 	<Sommet.h>
 	<Arete.h>
+	"allegro.h"
 
 1555354668 source:c:\users\admin\desktop\piscine_info\src\sommet.cpp
 	"Sommet.h"
