@@ -33,6 +33,17 @@ class Graphe
         {
             m_sommets[ID].DispSommet();
         }
+
+        float getPoids(int ID)
+        {
+            float sigma = 0;
+            for(unsigned int i = 0; i < m_Aretes.size(); i++)
+            {
+                sigma = sigma + m_Aretes[i].GetPoids(ID);
+            }
+            return sigma;
+        }
+
         void DisplayArete(int ID)
         {
             m_Aretes[ID].DispArete();
@@ -64,9 +75,7 @@ class Graphe
         void SortArete(int critere);
     void Pareteo(unsigned int vect_size, BITMAP* screen_buffer);
     void Pareteo(unsigned int vect_size);
-
-
-
+    void Partie3(unsigned int vect_size, BITMAP* screen_buffer);
     protected:
 
     private:

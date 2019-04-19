@@ -22,23 +22,24 @@ int main()
     std::cout << "Please input filename" << std::endl;
     std::cin >> nomfichier;
     Graphe Test = Graphe(nomfichier);
-    std::cout << "Choisissez l'option que vous voulez part'nair" << std::endl;
-    std::cout << "1) Primm (Phase 0 : Introduction)" << std::endl;
-    std::cout << "2) Pareto (Phase 1 : T    his was a mistake)" << std::endl;
-    std::cout << "3) Dijkstra (Phase 2 : 1-800-ENDME" <<std::endl;
+    std::cout << "Choisissez l'option " << std::endl;
+    std::cout << "1) Primm " << std::endl;
+    std::cout << "2) Pareto" << std::endl;
+    std::cout << "3) Dijkstra " <<std::endl;
     std::cin >> chx;
     switch(chx)
     {
 
     case(1) :
-        std::cout << "DIDNT DO IT SORRY" << std::endl;
+        std::cout << "Work In Progress" << std::endl;
         break;
 
     case(2) :
         Test.Pareteo(Test.Getm_ordre(),Screen_buffer);
         break;
     case(3) :
-        std::cout << "DIDNT DO IT SORRY GUYZ" << std::endl;
+        std::cout << "Work In Progress" << std::endl;
+        Test.Partie3(Test.Getm_ordre(),Screen_buffer);
         break;
     }
 
