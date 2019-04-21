@@ -22,6 +22,8 @@ int main()
     std::cout << "Please input filename" << std::endl;
     std::cin >> nomfichier;
     Graphe Test = Graphe(nomfichier);
+      Test.DrawGraph(Screen_buffer);
+      blit(Screen_buffer, screen, 0,0,0,0, SCREEN_W, SCREEN_H);// affichage console
     std::cout << "Choisissez l'option " << std::endl;
     std::cout << "1) Primm " << std::endl;
     std::cout << "2) Pareto" << std::endl;
@@ -31,8 +33,15 @@ int main()
     {
 
     case(1) :
-        std::cout << "Work In Progress" << std::endl;
+        //std::cout << "Work In Progress" << std::endl;
+        {
+
+        Graphe j;
+        Test.Prim(Screen_buffer,j);
+       // j.DrawGraph(Screen_buffer);
+        blit(Screen_buffer, screen, 0,0,0,0, SCREEN_W, SCREEN_H);
         break;
+        }
 
     case(2) :
         Test.Pareteo(Test.Getm_ordre(),Screen_buffer);

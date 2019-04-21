@@ -76,6 +76,10 @@ class Graphe
     void Pareteo(unsigned int vect_size, BITMAP* screen_buffer);
     void Pareteo(unsigned int vect_size);
     void Partie3(unsigned int vect_size, BITMAP* screen_buffer);
+    void Prim(BITMAP* screen_buffer, Graphe J);
+    Sommet getSommet(int i);
+    Arete getArete(int i);
+
     protected:
 
     private:

@@ -30,6 +30,8 @@ class Sommet
         }
 
 
+        int getAdjasize() {return m_Adja.size();}
+
         void DispAdja()
         {
             for(unsigned int i = 0; i < m_Adja.size(); i++)
@@ -40,6 +42,7 @@ class Sommet
             std::cout << std::endl;
         }
 
+        int getAdjaId( int j){return m_Adja_ID[j];}
         std::vector<Sommet*> getAdja() { return m_Adja; }
     protected:
 

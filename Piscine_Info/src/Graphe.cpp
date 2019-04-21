@@ -8,6 +8,7 @@
 #include <queue>
 #include <allegro.h>
 
+
 void Graphe::DrawGraph(BITMAP* buffer)
 {
     rectfill(buffer,0,0,SCREEN_W,SCREEN_H,makecol(255,255,255));
@@ -126,8 +127,19 @@ Graphe::Graphe(std::string filename)    ///Code TP2 : R.Fercoq / ECE / 2019
         m_sommets[i].DispAdja();
     }
 
+
+
 }
 
+
+Sommet Graphe::getSommet(int i)
+{
+    return m_sommets[i];
+}
+Arete Graphe::getArete(int i)
+{
+    return m_Aretes[i];
+}
 void Graphe::Pareteo(unsigned int vect_size, BITMAP* screen_buffer)
 {
     std::cout << vect_size << std::endl << std::endl;
@@ -395,17 +407,165 @@ void Graphe::Partie3(unsigned int vect_size, BITMAP* screen_buffer)
 }
 
 
-
-void Graphe::KruskalAlgo()
+void Graphe::Prim(BITMAP* buffer ,Graphe j) // ici flemme donc on part pas d'un sommet au hasard mais du premier directement pour eviter de se compliquer la vie
 {
-    std::vector<Sommet>AdjaVect;
-    int chx;
-    int ptdepart;
-    std::cout << "Definissez l'objectif (de 0 à " << m_Aretes[0].GetPoidsDimension() << std::endl;
-    std::cin >> chx;
-    std::cout << "Definissez le point de depart (de 0 à " << m_sommets.size() << std::endl;
-    std::cin >> ptdepart;
+
+    int chx; // l'utilisateur peut choisir sur quel poid il peut opérer
+    float primPoids;
+    std::vector<Arete> possible; //vecteur d'aretes vide où on va placer les aretes possibles créer avec le sommet utilisé
+    std::vector<float> poids;
+    std::vector<int*> affichage;
+    int marque[m_sommets.size()]={0}; //au lieu d'utiliser booleen(trop complique)on créer un tableau de marque
+    marque[0]=1; // on marque le premier sommet
+    std::vector <int> primid; //une fois un sommet marqué on le met dans prim -> arbre minimal
+    primid.push_back(0);   //comme le premier sommet est marqué on le push back dans primid
+    std::cout << "Definissez l'objectif (de 0 à "<< m_Aretes[0].GetPoidsDimension() << std::endl;
+    std::cin >> chx;                                                                                  // utilisateur rentre le choix poids
+
+
+    for(auto i=0; i<m_sommets.size()-1;i++) //d'après cours n-1
+    {
+
+        int variable=0; //variable à ajouter ensuite à possible
+        for(auto j=0; j<m_Aretes.size(); j++) // 2 cas
+        {
+
+            if(marque[m_Aretes[j].GetSommet1()]==1 && marque[m_Aretes[j].GetSommet2()]!=1) //si premier s marqué et sommet 2 -> c'est une arete possible
+            {
+                possible.push_back(m_Aretes[j]);
+                //std::cout<<" sommet 1 arete : "<<a[j].GetSommet1()<<"Sommet 2:"<<a[j].GetSommet2()<<std::endl;
+            }
+            if(marque[m_Aretes[j].GetSommet1()]==0 && marque[m_Aretes[j].GetSommet2()]!=0) //si deuxieme s marqué et sommet 1 -> c'est une arete possible
+            {
+                possible.push_back(m_Aretes[j]);
+            }
+        }
+
+
+        //std::cout<<"a[variable].GetPoids(chx) :"<<a[variable].GetPoids(chx)<<std::endl;
+        //std::cout<<"puis a[v].GetPoids(chx):"<<a[1].GetPoids(chx)<<std::endl;
+
+        for(auto v=1; v<possible.size();v++)
+        {
+            if((possible[variable].GetPoids(chx))>(possible[v].GetPoids(chx)))
+            {
+
+               // v==*(affichage[i]);
+                variable=v;
+
+
+                // std::cout<<" rang_pmin:"<<v;
+            }
+
+           // std::cout<<" rang_pmin:"<<rang_Pmin;
+        }
+
+        primPoids=primPoids+((possible[variable]).GetPoids(chx));
+       //std::cout<<"  marque[a[rang_Pmin].GetSommet1():" <<marque[a[rang_Pmin].GetSommet1()]<<std::endl;
+       //std::cout<<"  marque[a[rang_Pmin].GetSommet2():" <<marque[a[rang_Pmin].GetSommet2()]<<std::endl;
+
+        if(marque[possible[variable].GetSommet1()]==1)
+        {
+            marque[possible[variable].GetSommet2()]=1;
+            primid.push_back(possible[variable].GetSommet2());
+            //std::cout<<"  marque[a[rang_Pmin].GetSommet2() mtn:" <<marque[a[rang_Pmin].GetSommet2()]<<std::endl;
+
+        }
+        else if(marque[possible[variable].GetSommet2()]==1)
+        {
+            marque[possible[variable].GetSommet1()]=1;
+            primid.push_back(possible[variable].GetSommet1());
+        }
+        possible.clear();
+    }
+
+
+
+    //Graphe(primid[]) //on cré un nouveau graphe
+
+
+    //maintenant affichage de l'arbre minimal
+rectfill(buffer,0,0,SCREEN_W,SCREEN_H,makecol(255,255,255)); // on affiche tout les sommets
+    for(unsigned int i = 0; i < m_sommets.size(); i++)
+    {
+        circlefill(buffer, m_sommets[i].GetposX(), m_sommets[i].GetposY(), 10, makecol(0,0,0));
+    }
+
+/*
+
+        for(auto p=0;p<primid.size()-1;++p)
+        {
+            for(auto i = 0; i < m_Aretes.size(); ++i)  // si 2 id de primid forment une arete alors on dessine cette arete
+        {
+       if((primid[p]==m_Aretes[i].GetSommet1())&&( primid[p+1]==m_Aretes[i].GetSommet2()))
+        {
+
+        line(buffer, m_sommets[m_Aretes[i].GetSommet1()].GetposX(),m_sommets[m_Aretes[i].GetSommet1()].GetposY(),
+             m_sommets[m_Aretes[i].GetSommet2()].GetposX(),m_sommets[m_Aretes[i].GetSommet2()].GetposY(),makecol(100,0,0));
+             break;
+
+        }
+
+       else if ((primid[p+1]==m_Aretes[i].GetSommet1())&&( primid[p]==m_Aretes[i].GetSommet2()))
+       {
+            line(buffer, m_sommets[m_Aretes[i].GetSommet1()].GetposX(),m_sommets[m_Aretes[i].GetSommet1()].GetposY(),
+             m_sommets[m_Aretes[i].GetSommet2()].GetposX(),m_sommets[m_Aretes[i].GetSommet2()].GetposY(),makecol(100,0,0));
+             break;
+
+       }
+
+       else if ((primid[p]==m_Aretes[i].GetSommet1())&&( primid[p-1]==m_Aretes[i].GetSommet2()))
+       {
+            line(buffer, m_sommets[m_Aretes[i].GetSommet1()].GetposX(),m_sommets[m_Aretes[i].GetSommet1()].GetposY(),
+             m_sommets[m_Aretes[i].GetSommet2()].GetposX(),m_sommets[m_Aretes[i].GetSommet2()].GetposY(),makecol(100,0,0));
+             break;
+       }
+       else // si dans prim id l'arete n'existe pas
+        {
+            line(buffer, m_sommets[primid[p]].GetposX(),m_sommets[primid[p]].GetposY(),
+             m_sommets[primid[p+1]].GetposX(),m_sommets[primid[p+1]].GetposY(),makecol(100,0,0));
+        }
 
 }
+} */// probleme des fois il faut revenir en ariere pour formé l'arete donc toutes aretes ne se forment pas dans l'abre minimal
 
+ std::cout<<" Arbre minimal fait avec l'algorithme de Prim :"<<std::endl;
+
+    for(auto t=0;t<m_sommets.size();t++)
+    {
+        std::cout<< "--> "<<primid[t];
+    }
+
+    Graphe k;
+    for(auto p=0;p<m_sommets.size();p++)
+    {
+    k.m_sommets.push_back(m_sommets[p]);
+    std::cout<<"Sommets: "<<k.m_sommets[p].GetID()<<std::endl;
+
+    }
+
+    for(auto j=0;j<primid.size()-1;j++)
+    {
+        k.m_Aretes.push_back(Arete(primid[j],primid[j+1],k.m_sommets[primid[j]],k.m_sommets[primid[j+1]]));
+        std::cout<<"aretes: "<<k.m_Aretes[j].GetSommet1()<<" -"<<k.m_Aretes[j].GetSommet2()<<std::endl;
+    }
+
+    k.DrawGraph(buffer);
+
+   std::cout<<" Donc poids minimal:"<<primPoids<<std::endl;
+
+/*for (auto y=0;y<primid.size()-1;y++)
+{
+    std::cout<<"les aretes de primid :"<<primid[y]<<"- "<<primid[y+1]<<std::endl;
+
+            line(buffer, m_sommets[primid[y]].GetposX(),m_sommets[primid[y]].GetposY(),
+             m_sommets[primid[y+1]].GetposX(),m_sommets[primid[y+1]].GetposY(),makecol(100,0,0));
+}*/
+
+
+//Tu peux utiliser le constructeur de graphe
+//En utilisant le vecteur d'Id avec ton vecteur de sommets pour créer un vecteur de sommets
+//Et ensuite utiliser le vecteur d'arêtes
+
+}
 
