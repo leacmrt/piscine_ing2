@@ -4,6 +4,7 @@
 #define GRAPHE_H
 #include <vector>
 #include <Sommet.h>
+#include <algorithm>
 #include <Arete.h>
 #include "allegro.h"
 
@@ -33,6 +34,15 @@ class Graphe
         {
             m_sommets[ID].DispSommet();
         }
+
+        bool existe(int id1, int id2)
+         {
+             for (auto t=0;t<m_Aretes.size();t++)
+             {
+             if ( (m_Aretes[t].GetSommet1()==id1)&&(m_Aretes[t].GetSommet2()==id2))
+               return true;
+             }
+          }
 
         float getPoids(int ID)
         {
@@ -72,7 +82,7 @@ class Graphe
         {
             return m_sommets[ID].getAdja();
         }
-        void SortArete(int critere);
+    void SortArete(int critere);
     void Pareteo(unsigned int vect_size, BITMAP* screen_buffer);
     void Pareteo(unsigned int vect_size);
     void Partie3(unsigned int vect_size, BITMAP* screen_buffer);

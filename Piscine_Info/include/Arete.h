@@ -35,6 +35,7 @@ class Arete
             std::cout << std::endl;
         }
 
+
         Sommet getFirstId() {return m_sommet1;}
         Sommet getSecondId() {return m_sommet2;}
         bool pred(Arete *a1, Arete *a2)
@@ -45,6 +46,7 @@ class Arete
     protected:
 
     private:
+
         Sommet m_sommet1;
         Sommet m_sommet2;
         std::vector <float>m_Poids;

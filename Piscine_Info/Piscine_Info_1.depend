@@ -1,16 +1,17 @@
 # depslib dependency file v1.0
-1555861297 source:c:\users\lele1\desktop\infosemestre2\piscine_ing2-master\piscine_info\main.cpp
+1555881558 source:c:\users\lele1\desktop\infosemestre2\piscine_ing2-master\piscine_info\main.cpp
 	<iostream>
 	"Graphe.h"
 	"Sommet.h"
 	"Arete.h"
 	"allegro.h"
 
-1555850756 c:\users\lele1\desktop\infosemestre2\piscine_ing2-master\piscine_info\include\graphe.h
+1555875389 c:\users\lele1\desktop\infosemestre2\piscine_ing2-master\piscine_info\include\graphe.h
 	<unordered_map>
 	<iostream>
 	<vector>
 	<Sommet.h>
+	<algorithm>
 	<Arete.h>
 	"allegro.h"
 
@@ -19,7 +20,7 @@
 	<string>
 	<iostream>
 
-1555708650 c:\users\lele1\desktop\infosemestre2\piscine_ing2-master\piscine_info\include\arete.h
+1555873440 c:\users\lele1\desktop\infosemestre2\piscine_ing2-master\piscine_info\include\arete.h
 	"Sommet.h"
 	"Poids.h"
 
@@ -35,7 +36,7 @@
 1555673659 source:c:\users\lele1\desktop\infosemestre2\piscine_ing2-master\piscine_info\src\sommet.cpp
 	"Sommet.h"
 
-1555848529 source:c:\users\lele1\desktop\infosemestre2\piscine_ing2-master\piscine_info\src\graphe.cpp
+1555875125 source:c:\users\lele1\desktop\infosemestre2\piscine_ing2-master\piscine_info\src\graphe.cpp
 	<algorithm>
 	"Graphe.h"
 	"Arete.h"
