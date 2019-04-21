@@ -569,3 +569,17 @@ rectfill(buffer,0,0,SCREEN_W,SCREEN_H,makecol(255,255,255)); // on affiche tout 
 
 }
 
+void Graphe::DessinerPrim(BITMAP* buffer,Graphe &k)
+{
+     rectfill(buffer,0,0,SCREEN_W,SCREEN_H,makecol(255,255,255));
+    for(unsigned int i = 0; i < m_sommets.size(); i++)
+    {
+        circlefill(buffer, m_sommets[i].GetposX(), m_sommets[i].GetposY(), 10, makecol(0,0,0));
+    }
+    for(unsigned int i = 0; i < m_Aretes.size(); i++)
+    {
+        line(buffer, m_sommets[m_Aretes[i].GetSommet1()].GetposX(),m_sommets[m_Aretes[i].GetSommet1()].GetposY(),
+             m_sommets[m_Aretes[i].GetSommet2()].GetposX(),m_sommets[k.m_Aretes[i].GetSommet2()].GetposY(),makecol(100,0,0));
+    }
+
+}

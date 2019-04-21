@@ -27,7 +27,7 @@ class Graphe
         void Settaille(unsigned int val) { m_taille = val; }
         void AddArete(int id_1, int id_2)
         {
-            m_Aretes.push_back(Arete());
+            m_Aretes.push_back(Arete(id_1,id_2,m_sommets[id_1],m_sommets[id_2]));
         }
         void DisplaySommet(int ID)
         {
@@ -77,8 +77,10 @@ class Graphe
     void Pareteo(unsigned int vect_size);
     void Partie3(unsigned int vect_size, BITMAP* screen_buffer);
     void Prim(BITMAP* screen_buffer, Graphe J);
+    void addSommet (int id, int x,int y) {m_sommets.push_back(Sommet(id,x,y));}
     Sommet getSommet(int i);
     Arete getArete(int i);
+    void DessinerPrim(BITMAP* buffer,Graphe &k);
 
     protected:
 
