@@ -57,13 +57,13 @@ Graphe::Graphe(std::string filename)    ///Code TP2 : R.Fercoq / ECE / 2019
     {
         ifs>>id;
         if(ifs.fail())
-            throw std::runtime_error("Probleme lecture données sommet");
+            throw std::runtime_error("Probleme lecture donnÃ©es sommet");
         ifs>>x;
         if(ifs.fail())
-            throw std::runtime_error("Probleme lecture données sommet");
+            throw std::runtime_error("Probleme lecture donnÃ©es sommet");
         ifs>>y;
         if(ifs.fail())
-            throw std::runtime_error("Probleme lecture données sommet");
+            throw std::runtime_error("Probleme lecture donnÃ©es sommet");
         m_sommets.push_back(Sommet(id,x,y));
 
 
@@ -89,7 +89,7 @@ Graphe::Graphe(std::string filename)    ///Code TP2 : R.Fercoq / ECE / 2019
     }
 
 
-    std::cout << "Choisissez le fichier de pondération" << std::endl;
+    std::cout << "Choisissez le fichier de pondÃ©ration" << std::endl;
     std::cin >> filename;
 
     std::ifstream ifs1{filename};
@@ -150,8 +150,8 @@ void Graphe::Pareteo(unsigned int vect_size, BITMAP* screen_buffer)
     int NmbreTotalEssais = pow(2,m_Aretes.size());
     unsigned int buffer;
     float Sigma = 0;
-
-
+    
+    ///DÃ©finition des potentiels graphes : comptage binaire
     for(int i = 0; i < NmbreTotalEssais; i++)
     {
         bin_Vect.clear();
@@ -161,12 +161,13 @@ void Graphe::Pareteo(unsigned int vect_size, BITMAP* screen_buffer)
             bin_Vect.push_back(buffer%2);
             buffer = buffer / 2;
         }
-
+        ///Verification que le nombre d'aretes "actives" est suffisant
         buffer = 0;
         for(unsigned int j = 0; j < bin_Vect.size(); j++)
         {
             buffer = buffer + bin_Vect[j];
         }
+        ///Condition rÃ©alisÃ©e : on ajoute le graphe
         // std::cout << buffer << "  " << vect_size << std::endl;
         if(buffer == (m_sommets.size() - 1))
         {
@@ -178,8 +179,11 @@ void Graphe::Pareteo(unsigned int vect_size, BITMAP* screen_buffer)
             bin_Vect_Good.push_back(bin_Vect);
         }
     };
+    
+    
     std::cout << " CXIT" << std::endl;
     std::cout << "Taille " << m_Aretes.size() << " Ordre = " << m_sommets.size() << " Solutions totales : " << bin_Vect_Good.size() << std::endl;
+    ///Si nombre de graphes torop Ã©levÃ© : On Ã©chantillonne alÃ©atoirement
     if(bin_Vect_Good.size() > 1000000)
     {
         for(unsigned int i = 0; i < (bin_Vect_Good.size()/1000); i++)
@@ -198,7 +202,7 @@ void Graphe::Pareteo(unsigned int vect_size, BITMAP* screen_buffer)
     std::queue<unsigned int>Somm_Queue;
 
     ///Test connexite : TO OPTIMIZE
-
+    ///BFS
     for(unsigned int i = 0; i < bin_Vect_Good.size(); i++)
     {
         unsigned int CheckedValues[m_sommets.size()] = {0};
@@ -268,8 +272,10 @@ void Graphe::Pareteo(unsigned int vect_size, BITMAP* screen_buffer)
         ID_Test.clear();
         */
     }
+    ///Conditionnement : suppression de la premiÃ¨re valeur
     bin_Vect_Good.erase(bin_Vect_Good.begin());
 
+    ///Creation des graphes solution
     std::cout << bin_Vect_Good.size() << "  " << m_Aretes.size() << " ///: " << bin_Vect_Good[0].size() << std::endl;
 
     for(unsigned int i = 0 ; i < bin_Vect_Good.size(); i++)
@@ -284,7 +290,7 @@ void Graphe::Pareteo(unsigned int vect_size, BITMAP* screen_buffer)
         vect_Gph_Processed.push_back(Graphe(m_sommets,vect_Aret));
         vect_Aret.clear();
     }
-
+   ///Definition des poids
     for(unsigned int i = 0; i < 2; i++)
     {
         for(unsigned int j = 0; j < bin_Vect_Good.size(); j++)
@@ -303,13 +309,14 @@ void Graphe::Pareteo(unsigned int vect_size, BITMAP* screen_buffer)
         weigh_sum_local.clear();
     }
     buffer = 0;
-
+    ///Calcul des solutions de Pareto
     float test_wght0 = *(max_element(weight_sum[0].begin(),weight_sum[0].end()));
     float test_wght1 = *(max_element(weight_sum[1].begin(),weight_sum[1].end()));
     float test_wghtmin0 = *(min_element(weight_sum[0].begin(),weight_sum[0].end()));
     float test_wghtmin1 = *(min_element(weight_sum[1].begin(),weight_sum[1].end()));
     std::vector<float>GeomWeightAvrg;
     std::cout << test_wght0 << " AND  " << test_wght1 << std::endl;
+    ///Affichage des graphes Pareto
     for(unsigned int i = 0; i < weight_sum[0].size(); i++)
     {
         //std::cin >> chx;
@@ -327,10 +334,9 @@ void Graphe::Pareteo(unsigned int vect_size, BITMAP* screen_buffer)
             //vect_Gph_Processed[i].DisplayGraphe();
 //
     }
-
+    ///Affichage du graphe de Pareto
     rectfill(screen_buffer,0,0,SCREEN_W,SCREEN_H,makecol(255,255,255));
-    std::cout <<  "PARETO INBOUND !!!!" <<std::endl;
-    std::cin >> buffer;
+        std::cin >> buffer;
     line(screen_buffer,test_wghtmin0,0,test_wghtmin0,SCREEN_H,makecol(255,0,0));
     line(screen_buffer,0,SCREEN_H-test_wghtmin1,SCREEN_W,SCREEN_H-test_wghtmin1,makecol(255,0,0));
     for(unsigned int i = 0; i < vect_Gph_Processed.size(); i++)
@@ -407,31 +413,31 @@ void Graphe::Partie3(unsigned int vect_size, BITMAP* screen_buffer)
 void Graphe::Prim( ) // ici flemme donc on part pas d'un sommet au hasard mais du premier directement pour eviter de se compliquer la vie
 {
 
-    int chx; // l'utilisateur peut choisir sur quel poid il peut opérer
+    int chx; // l'utilisateur peut choisir sur quel poid il peut opÃ©rer
 
-    std::vector<Arete> possible; //vecteur d'aretes vide où on va placer les aretes possibles créer avec le sommet utilisé
+    std::vector<Arete> possible; //vecteur d'aretes vide oÃ¹ on va placer les aretes possibles crÃ©er avec le sommet utilisÃ©
     std::vector<float> poids;
-    int marque[m_sommets.size()]={0}; //au lieu d'utiliser booleen(trop complique)on créer un tableau de marque
+    int marque[m_sommets.size()]={0}; //au lieu d'utiliser booleen(trop complique)on crÃ©er un tableau de marque
     marque[0]=1; // on marque le premier sommet
-    std::vector <int> primid; //une fois un sommet marqué on le met dans prim -> arbre minimal
-    primid.push_back(0);   //comme le premier sommet est marqué on le push back dans primid
-    std::cout << "Definissez l'objectif (de 0 à "<< m_Aretes[0].GetPoidsDimension() << std::endl;
+    std::vector <int> primid; //une fois un sommet marquÃ© on le met dans prim -> arbre minimal
+    primid.push_back(0);   //comme le premier sommet est marquÃ© on le push back dans primid
+    std::cout << "Definissez l'objectif (de 0 Ã  "<< m_Aretes[0].GetPoidsDimension() << std::endl;
     std::cin >> chx;                                                                                  // utilisateur rentre le choix poids
 
 
-    for(auto i=0; i<m_sommets.size()-1;i++) //d'après cours n-1
+    for(auto i=0; i<m_sommets.size()-1;i++) //d'aprÃ¨s cours n-1
     {
 
-        int variable=0; //variable à ajouter ensuite à possible
+        int variable=0; //variable Ã  ajouter ensuite Ã  possible
         for(auto j=0; j<m_Aretes.size(); j++) // 2 cas
         {
 
-            if(marque[m_Aretes[j].GetSommet1()]==1 && marque[m_Aretes[j].GetSommet2()]!=1) //si premier s marqué et sommet 2 -> c'est une arete possible
+            if(marque[m_Aretes[j].GetSommet1()]==1 && marque[m_Aretes[j].GetSommet2()]!=1) //si premier s marquÃ© et sommet 2 -> c'est une arete possible
             {
                 possible.push_back(m_Aretes[j]);
                 //std::cout<<" sommet 1 arete : "<<a[j].GetSommet1()<<"Sommet 2:"<<a[j].GetSommet2()<<std::endl;
             }
-            if(marque[m_Aretes[j].GetSommet1()]==0 && marque[m_Aretes[j].GetSommet2()]!=0) //si deuxieme s marqué et sommet 1 -> c'est une arete possible
+            if(marque[m_Aretes[j].GetSommet1()]==0 && marque[m_Aretes[j].GetSommet2()]!=0) //si deuxieme s marquÃ© et sommet 1 -> c'est une arete possible
             {
                 possible.push_back(m_Aretes[j]);
             }
@@ -486,9 +492,9 @@ void Graphe::KruskalAlgo()
     std::vector<Sommet>AdjaVect;
     int chx;
     int ptdepart;
-    std::cout << "Definissez l'objectif (de 0 à " << m_Aretes[0].GetPoidsDimension() << std::endl;
+    std::cout << "Definissez l'objectif (de 0 Ã  " << m_Aretes[0].GetPoidsDimension() << std::endl;
     std::cin >> chx;
-    std::cout << "Definissez le point de depart (de 0 à " << m_sommets.size() << std::endl;
+    std::cout << "Definissez le point de depart (de 0 Ã  " << m_sommets.size() << std::endl;
     std::cin >> ptdepart;
 
 }
